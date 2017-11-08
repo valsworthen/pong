@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 31 18:28:29 2017
-
-@author: vguiguet
+This file implements the main classes of the Pong game, that is the Player and the Ball. 
 """
 from constantes import *
 import pygame
@@ -18,11 +16,11 @@ class Player:
         self.y = y
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         
-    #Affiche le rectangle joueur
+    #display player's bar
     def draw_bar(self, screen):
         pygame.draw.rect(screen, WHITE, self.rect)
     
-    #Actualise les coordonnées du rectangle représentant le joueur = DEPLACEMENT    
+    #update the position of player's bar   
     def move(self, direction):
         if direction == 'up' and self.y >2:
             self.y -= 3
@@ -31,7 +29,7 @@ class Player:
                     
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         
-        
+#Define the ball   
 class Ball:
     def __init__(self, ball_speed):
         self.size = ball_size
@@ -41,24 +39,29 @@ class Ball:
         
         self.speed = ball_speed
         
-    #Affiche la balle
+    #display ball
     def draw_ball(self, screen):
         pygame.draw.rect(screen, WHITE, self.ball)
         
-    #Mouvement auto
+    #automatic movement
     def move(self, player):
         self.ball = self.ball.move(self.speed)
         
-        #Collision avec le bord
+        #collision  with the window
+        #bounce back horizontally and vertically when the ball collides the window
         if self.ball.right > width_window:
             self.speed[0] = - self.speed[0]
         if self.ball.top < 0 or self.ball.bottom > height_window:
             self.speed[1] = - self.speed[1]
             
-        #Collision avec player
-        """Rajouter des conditions pour le cas de la collision vers le bas"""
+        #collision with the player
         if self.ball.colliderect(player.rect):
+            self.speed[0] = - self.speed[0]
+            
+            """This part needs fixing"""
+            """
             if self.ball.y > player.x:
                 self.speed[1] = - self.speed[1] #incorrect
             else:    
                 self.speed[0] = - self.speed[0]
+            """

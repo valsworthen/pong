@@ -14,7 +14,7 @@ import numpy as np
 
 pygame.init()
 
-#Ouverture de la fenêtre Pygame (carré : largeur = hauteur)
+#opening of the pygame window (square)
 fenetre = pygame.display.set_mode((width_window, height_window))
 clock=pygame.time.Clock()
 
@@ -23,7 +23,7 @@ pygame.key.set_repeat(10, 1)
 
 while 1:
     clock.tick(60)
-    jeu = 0
+    game = 0
     speed_x = 0
     speed_y = 0
     ball_speed = [speed_x,speed_y]
@@ -34,13 +34,13 @@ while 1:
             pygame.quit()
             
         if event.type == KEYDOWN:
-            #attribue une vitesse à la balle
+            #set ball's speed
             speed_x = np.random.uniform(2,4)
             
             speed_y = np.sqrt(speed_norm - speed_x**2)
             ball_speed = [speed_x,speed_y]
             print(ball_speed)
-            jeu = 1 #start game
+            game = 1 #start game
             
     
     #Display player's bar at initial position
@@ -53,10 +53,10 @@ while 1:
     
     pygame.display.flip()
     
-    '''BOUCLE JEU'''
-    while jeu:
+    '''GAME LOOP'''
+    while game:
         #INPUT
-        #move automatique
+        #automatic movement
         ball.move(player)
                
         pygame.time.delay(5)
@@ -66,12 +66,14 @@ while 1:
             if event.type == QUIT:
                 pygame.quit()
             #UPDATE GAME        
-            #Déplacement du player
+            #move player's bar
+            #with mouse
             '''if event.type == MOUSEMOTION:
                 if event.rel[1] < 0:
                     player.move('up')
                 elif event.rel[1] > 0:
                     player.move('down')'''
+	        #with keyboard
             if event.type == KEYDOWN:
                 if event.key == K_UP:
                     player.move('up')
@@ -79,15 +81,15 @@ while 1:
                     player.move('down')
                 
         #RENDER GAME
-        #Affichages aux nouvelles positions
+        #display object at their new positions
         fenetre.fill(BLACK)    
         ball.draw_ball(fenetre)        
         player.draw_bar(fenetre)
         pygame.display.flip()
         
-        #Défaite
+        #losing the game
         if ball.ball.left < 0:
-            jeu = 0
+            game = 0
             fenetre.fill(BLACK) 
             pygame.display.flip()
             
