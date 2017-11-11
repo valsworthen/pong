@@ -8,9 +8,10 @@ Contains 3 files: pong.py, classes.py, constantes.py
 try:
     import pygame
 except ImportError:
-    import pip
-    pip.main(['install', '--user', 'pygame'])
-    import pygame
+    print('This game require pygame to work!')
+    #import pip
+    #pip.main(['install', '--user', 'pygame'])
+    #import pygame
 
 from pygame.locals import *
 from constantes import *
@@ -94,7 +95,7 @@ while 1:
         pygame.display.flip()
 
         #losing the game
-        if ball.ball.left < 0:
+        if ball.left < 0:
             print('GAME LOST')
             game = 0
             fenetre.fill(BLACK)
