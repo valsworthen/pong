@@ -65,10 +65,10 @@ while 1:
                 pygame.quit()
 
             if event.type == KEYDOWN:
-                if event.key == K_F1:
+                if event.key == K_s:
                     solo = True
                     welcome, new_game = init_new_game()
-                elif event.key == K_F2:
+                elif event.key == K_m:
                     solo = False
                     welcome, new_game = init_new_game()
 
@@ -140,7 +140,7 @@ while 1:
                 elif pressed_keys[K_DOWN]:
                     player2.move('down')
 
-            if pressed_keys[K_z]:
+            if pressed_keys[K_z] or pressed_keys[K_w]:
                 player1.move('up')
             elif pressed_keys[K_s]:
                 player1.move('down')
