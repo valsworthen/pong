@@ -24,7 +24,7 @@ myfont = pygame.font.SysFont("monospace", 15)
 score_font = pygame.font.SysFont("arial", 100)
 clock=pygame.time.Clock()
 
-pygame.key.set_repeat(10, 1)
+pygame.key.set_repeat(100, 1)
 
 solo = True #SOLOPLAYER ACTIVATED
 welcome = 1
@@ -95,7 +95,8 @@ while 1:
 
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                pygame.quit()
+                welcome = 1
+                new_game = 0
             #Start round
             if event.type == KEYDOWN and event.key == K_p:
                 if solo:
@@ -110,6 +111,7 @@ while 1:
 
                 new_game = 0
                 new_round = 1
+                pygame.key.set_repeat(10, 1)
                 fenetre.fill(BLACK)
 
     '''GAME LOOP'''
@@ -125,7 +127,9 @@ while 1:
 
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                pygame.quit()
+                pygame.key.set_repeat(100, 1)
+                welcome = 1
+                new_round = 0
 
             #UPDATE GAME
             #move player's bar
@@ -142,7 +146,7 @@ while 1:
                 player1.move('down')
 
         #RENDER GAME
-        #display object at their new positions
+        #display objects at their new positions
         fenetre.fill(BLACK)
         display_score(score_1, score_2)
         ball.draw_ball(fenetre)
