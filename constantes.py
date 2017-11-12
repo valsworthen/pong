@@ -10,6 +10,11 @@ BLACK = (0,0,0)
 refresh = 5
 fps = 60
 
+welcome_img = 'welcome.png'
+new_game_img = 'new_game.png'
+
+score_1 = 0
+score_2 = 0
 
 #Player's parameters
 width = 30

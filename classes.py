@@ -11,7 +11,7 @@ from pygame.locals import *
 class Player(pygame.Rect):
     def __init__(self,x,y,width,height):
         Rect.__init__(self, x, y, width, height)
-        
+
 
     #display player's bar
     def draw_bar(self, screen):
