@@ -27,6 +27,8 @@ clock=pygame.time.Clock()
 
 pygame.key.set_repeat(10, 1)
 
+solo = False #MULTIPLAYER ACTIVATED
+
 
 while 1:
     clock.tick(fps)
@@ -42,7 +44,8 @@ while 1:
 
         if event.type == KEYDOWN:
             #set ball's speed
-            speed_x = np.random.uniform(min_speed_x,max_speed_x)
+            sign = np.random.choice([-1,1])
+            speed_x = sign * np.random.uniform(min_speed_x,max_speed_x)
 
             speed_y = np.sqrt(speed_norm - speed_x**2)
             ball_speed = [speed_x,speed_y]
@@ -51,8 +54,10 @@ while 1:
 
 
     #Display player's bar at initial position
-    player = Player()
-    player.draw_bar(fenetre)
+    player1 = Player(x1,y1,width,height)
+    player1.draw_bar(fenetre)
+    player2 = Player(x2,y2,width,height)
+    player2.draw_bar(fenetre)
 
     #Display ball
     ball = Ball(speed_x, speed_y)
@@ -64,8 +69,10 @@ while 1:
     while game:
         #INPUT
         #automatic movement
-        ball.move(player)
-        ball.check_collision_window()
+        ball.check_collision_player1(player1)
+        ball.check_collision_player2(player2)
+        ball.move(player1)
+        ball.check_collision_window(solo)
 
         pygame.time.delay(refresh)
 
@@ -81,21 +88,27 @@ while 1:
                 elif event.rel[1] > 0:
                     player.move('down')'''
 	        #with keyboard
-            if event.type == KEYDOWN:
-                if event.key == K_UP:
-                    player.move('up')
-                elif event.key == K_DOWN:
-                    player.move('down')
+            pressed_keys = pygame.key.get_pressed()
+            if pressed_keys[K_UP]:
+                player2.move('up')
+            elif pressed_keys[K_DOWN]:
+                player2.move('down')
+
+            if pressed_keys[K_z]:
+                player1.move('up')
+            elif pressed_keys[K_s]:
+                player1.move('down')
 
         #RENDER GAME
         #display object at their new positions
         fenetre.fill(BLACK)
         ball.draw_ball(fenetre)
-        player.draw_bar(fenetre)
+        player1.draw_bar(fenetre)
+        player2.draw_bar(fenetre)
         pygame.display.flip()
 
         #losing the game
-        if ball.left < 0:
+        if ball.left < 0 or ball.right > width_window:
             print('GAME LOST')
             game = 0
             fenetre.fill(BLACK)

@@ -4,8 +4,8 @@ This file contains the main constants used in the Pong game
 """
 
 #window's parameters
-width_window = 640
-height_window = 480
+width_window = 1024
+height_window = 640
 BLACK = (0,0,0)
 refresh = 5
 fps = 60
@@ -13,9 +13,12 @@ fps = 60
 
 #Player's parameters
 width = 30
-height = 100
-x = width
-y = height_window / 2 - height / 2
+height = 130
+x1 = 5
+y1 = height_window / 2 - height / 2
+x2 = width_window - width - 5
+y2 = y1
+player_speed = 5
 WHITE = (255, 255, 255)
 
 #Ball's parameters
