@@ -27,7 +27,7 @@ clock=pygame.time.Clock()
 
 pygame.key.set_repeat(10, 1)
 
-solo = False #MULTIPLAYER ACTIVATED
+solo = True #MULTIPLAYER ACTIVATED
 
 
 while 1:
@@ -44,7 +44,10 @@ while 1:
 
         if event.type == KEYDOWN:
             #set ball's speed
-            sign = np.random.choice([-1,1])
+            if solo:
+                sign = 1
+            else:
+                sign = np.random.choice([-1,1])
             speed_x = sign * np.random.uniform(min_speed_x,max_speed_x)
 
             speed_y = np.sqrt(speed_norm - speed_x**2)
@@ -56,8 +59,9 @@ while 1:
     #Display player's bar at initial position
     player1 = Player(x1,y1,width,height)
     player1.draw_bar(fenetre)
-    player2 = Player(x2,y2,width,height)
-    player2.draw_bar(fenetre)
+    if not solo:
+        player2 = Player(x2,y2,width,height)
+        player2.draw_bar(fenetre)
 
     #Display ball
     ball = Ball(speed_x, speed_y)
@@ -70,7 +74,8 @@ while 1:
         #INPUT
         #automatic movement
         ball.check_collision_player1(player1)
-        ball.check_collision_player2(player2)
+        if not solo:
+            ball.check_collision_player2(player2)
         ball.move(player1)
         ball.check_collision_window(solo)
 
@@ -89,10 +94,11 @@ while 1:
                     player.move('down')'''
 	        #with keyboard
             pressed_keys = pygame.key.get_pressed()
-            if pressed_keys[K_UP]:
-                player2.move('up')
-            elif pressed_keys[K_DOWN]:
-                player2.move('down')
+            if not solo:
+                if pressed_keys[K_UP]:
+                    player2.move('up')
+                elif pressed_keys[K_DOWN]:
+                    player2.move('down')
 
             if pressed_keys[K_z]:
                 player1.move('up')
@@ -104,11 +110,12 @@ while 1:
         fenetre.fill(BLACK)
         ball.draw_ball(fenetre)
         player1.draw_bar(fenetre)
-        player2.draw_bar(fenetre)
+        if not solo:
+            player2.draw_bar(fenetre)
         pygame.display.flip()
 
         #losing the game
-        if ball.left < 0 or ball.right > width_window:
+        if ball.left < 0 or (not solo and ball.right > width_window):
             print('GAME LOST')
             game = 0
             fenetre.fill(BLACK)

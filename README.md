@@ -16,5 +16,5 @@ Note that if the ball hits the top half of the paddle, then it will be moving up
 
 Things to be fixed :  
   - collision bug with the **corners** of the paddle  
-  - add IA / 2nd player  
+  - Menu to chose between 1P and 2P mode  
   - Add a score vizualisation  
