@@ -59,11 +59,11 @@ class Ball(pygame.Rect):
             #check if collision occurred on the top or bottom extremity of the player
             #pb still happens when corner of the ball hits corner of the player
             if (player.collidepoint(self.topleft) or player.collidepoint(self.topright)) and not player.collidepoint(self.bottomleft):
-                    self.y = player.bottom + 4
-                    self.speed_y = - self.speed_y
+                self.y = player.bottom + 4
+                self.speed_y = - self.speed_y
             elif (player.collidepoint(self.bottomleft) or player.collidepoint(self.bottomright)) and not player.collidepoint(self.topleft):
-                    self.y = player.top - 4
-                    self.speed_y = - self.speed_y
+                self.y = player.top - 4
+                self.speed_y = - self.speed_y
             else: #it happened on the right side
                 self.speed_x = - self.speed_x
                 self.x = player.right + 4
@@ -80,11 +80,11 @@ class Ball(pygame.Rect):
             #check if collision occurred on the top or bottom extremity of the player
             #pb still happens when corner of the ball hits corner of the player
             if (player.collidepoint(self.topleft) or player.collidepoint(self.topright)) and not player.collidepoint(self.bottomright):
-                    self.y = player.bottom + 4 #collided from bottom
-                    self.speed_y = - self.speed_y
+                self.y = player.bottom + 4 #collided from bottom
+                self.speed_y = - self.speed_y
             elif (player.collidepoint(self.bottomleft) or player.collidepoint(self.bottomright)) and not player.collidepoint(self.topright):
-                    self.y = player.top - 4 #collided from top
-                    self.speed_y = - self.speed_y
+                self.y = player.top - 4 #collided from top
+                self.speed_y = - self.speed_y
             else: #it happened on the right side
                 self.speed_x = - self.speed_x
                 self.right = player.left - 4
